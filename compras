@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char razonSocial[100];
+    char cedula[20];
+    int refrescosDetal;
+    int maltasDetal;
+} Cliente;
+
+float calcularTotal(Cliente cliente) {
+    float total = 0;
+    if (cliente.refrescosDetal > 6) {
+        total += cliente.refrescosDetal * 5; // Precio al mayor
+    } else {
+        total += cliente.refrescosDetal * 10; // Precio al detal
+    }
+
+    if (cliente.maltasDetal > 6) {
+        total += cliente.maltasDetal * 7; // Precio al mayor
+    } else {
+        total += cliente.maltasDetal * 12; // Precio al detal
+    }
+
+    return total;
+}
+
+int main() {
+    Cliente cliente;
+
+    // Commit: Capturar datos del cliente
+    printf("Ingrese la razon social: ");
+    fgets(cliente.razonSocial, 100, stdin);
+    cliente.razonSocial[strcspn(cliente.razonSocial, "\n")] = '\0'; 
+
+    printf("Ingrese la cedula: ");
+    fgets(cliente.cedula, 20, stdin);
+    cliente.cedula[strcspn(cliente.cedula, "\n")] = '\0'; 
+
+    // Commit: Capturar cantidades de compra al detal
+    printf("Ingrese la cantidad de refrescos al detal: ");
+    scanf("%d", &cliente.refrescosDetal);
+    printf("Ingrese la cantidad de maltas al detal: ");
+    scanf("%d", &cliente.maltasDetal);
+
+    // Commit: Calcular el monto total a pagar
+    float totalPagar = calcularTotal(cliente);
+
+    // Commit: Imprimir el monto total a pagar
+    printf("\nTotal a pagar por %s (%s): $%.2f\n", cliente.razonSocial, cliente.cedula, totalPagar);
+
+    // Commit: Imprimir los integrantes del equipo
+    printf("\nIntegrantes:\nJorge Pina\nJhosnar Ereu\nHector Godoy\n");
+
+    return 0;
+}
